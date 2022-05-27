@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game Caro</title>
+    <style>
+        button {
+            width: 50px;
+            height: 50px;
+        }
+
+        #play {
+            margin-left: 10px;
+            height: 25px;
+        }
+    </style>
+</head>
+<body>
+<label for="row">Số Hàng Tạo : </label><input type="number" id="row" name="row" value="10" >
+<label for="colume">Số Cột Tạo : </label><input type="number" id="colume" name="colume" value="22" >
+<button id="play" onclick="playgame()">Play</button>
+<div id="main"></div>
+</body>
+</html>
+<!--"<button id=but"+i+"_"+j+" onclick=clickE("+i+","+j+")></button>"-->
+<script>
+    let board=new Array()
+    function render(row, colume) {
+        let resume = "<table>"
+
+        for (let i = 0; i < row; i++) {
+            board[i]=new Array()
+            resume += "<tr>"
+            for (let j = 0; j < colume; j++) {
+                resume += '<td>'
+                resume += '<button id="but'+i+'_'+j+'" onclick="clickE('+i+','+j+')"></button>'
+                resume += '</td>'
+            }
+            resume += '</tr>'
+        }
+        resume += "</table>"
+        return resume
+    }
+    let rows = 0
+    let columes = 0
+    function playgame() {
+        rows = document.getElementById('row').value
+        columes = document.getElementById('colume').value
+        document.getElementById('main').innerHTML = render(rows, columes)
+    }
+
+    let play = true
+    function clickE(i,j) {
+        let node = document.getElementById("but"+i+"_"+j);
+        node.value = (play ? "x" : "o")
+        node.innerHTML=(play?"X":"0")
+        node.style.color =(play?"red":"black")
+        node.setAttribute("disabled",true)
+        play = !play
+        board[i][j]= node.value
+        for(let i=0; i<rows; i++){
+            for (let j=0; j<columes; j++){
+                if (board[i][j] === 'x' && board[i+1][j+1] === 'x' && board[i+2][j+2] === 'x' && board[i+3][j+3] === 'x' && board[i+4][j+4] === 'x' ||
+                    board[i][j] === 'x' && board[i+1][j] === 'x' && board[i+2][j] === 'x' && board[i+3][j] === 'x' && board[i+4][j] === 'x' ||
+                    board[i][j] === 'x' && board[i+1][j-1] === 'x' && board[i+2][j-2] === 'x' && board[i+3][j-3] === 'x' && board[i+4][j-4] === 'x' ||
+                    board[i][j] === 'x' && board[i][j+1] === 'x' && board[i][j+2] === 'x' && board[i][j+3] === 'x' && board[i][j+4] === 'x' ||
+                    board[i][j] === 'x' && board[i][j-1] === 'x' && board[i][j-2] === 'x' && board[i][j-3] === 'x' && board[i][j-4] === 'x' ||
+                    board[i][j] === 'x' && board[i-1][j-1] === 'x' && board[i-2][j-2] === 'x' && board[i-3][j-3] === 'x' && board[i-4][j-4] === 'x' ||
+                    board[i][j] === 'x' && board[i-1][j] === 'x' && board[i-2][j] === 'x' && board[i-3][j] === 'x' && board[i-4][j] === 'x' ||
+                    board[i][j] === 'x' && board[i-1][j+1] === 'x' && board[i-2][j+2] === 'x' && board[i-3][j+3] === 'x' && board[i-4][j+4] === 'x' ){
+                    return  alert("Player x Win");
+
+                }else if(board[i][j] === 'o' && board[i+1][j+1] === 'o' && board[i+2][j+2] === 'o' && board[i+3][j+3] === 'o' && board[i+4][j+4] === 'o' ||
+                    board[i][j] === 'o' && board[i+1][j] === 'o' && board[i+2][j] === 'o' && board[i+3][j] === 'o' && board[i+4][j] === 'o' ||
+                    board[i][j] === 'o' && board[i+1][j-1] === 'o' && board[i+2][j-2] === 'o' && board[i+3][j-3] === 'o' && board[i+4][j-4] === 'o' ||
+                    board[i][j] === 'o' && board[i][j+1] === 'o' && board[i][j+2] === 'o' && board[i][j+3] === 'o' && board[i][j+4] === 'o' ||
+                    board[i][j] === 'o' && board[i][j-1] === 'o' && board[i][j-2] === 'o' && board[i][j-3] === 'o' && board[i][j-4] === 'o' ||
+                    board[i][j] === 'o' && board[i-1][j-1] === 'o' && board[i-2][j-2] === 'o' && board[i-3][j-3] === 'o' && board[i-4][j-4] === 'o' ||
+                    board[i][j] === 'o' && board[i-1][j] === 'o' && board[i-2][j] === 'o' && board[i-3][j] === 'o' && board[i-4][j] === 'o' ||
+                    board[i][j] === 'o' && board[i-1][j+1] === 'o' && board[i-2][j+2] === 'o' && board[i-3][j+3] === 'o' && board[i-4][j+4] === 'o'){
+                    return  alert("Player o Win");
+                }
+
+            }
+        }
+    }
+
+
+
+</script>
